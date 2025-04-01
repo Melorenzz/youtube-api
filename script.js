@@ -1,4 +1,4 @@
-const API_KEY = "YOUR_API_KEY";
+const API_KEY = "AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
 const query = document.getElementById('userSearch');
 const searchBtn = document.getElementById('searchBtn');
 const loadedVideo = document.getElementById('loadedVideos');
@@ -32,9 +32,23 @@ const getData = () => {
         })
 }
 
+function getChannelData(channelId, avatarElement) {
+    const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${API_KEY}`;
+    sendRequest(url, 'GET')
+        .then(response => {
+            console.log(response)
+            const channelInfo = response.items
+            channelInfo.forEach((channel) => {
+                avatarElement.src = `${channel.snippet.thumbnails.default.url}`
+
+            })
+        })
+}
+
 function loadVideo(data) {
     const videoInfo = data.items;
     videoInfo.forEach((video) => {
+        getChannelData(video.snippet.channelId)
         console.log(video.snippet);
         const videoId = video.id.videoId
         const videoElement = document.createElement('div');
@@ -43,7 +57,8 @@ function loadVideo(data) {
         <div id="videoBlock" class="video_grid-block">
             <img class="video_thumbnail" src="${video.snippet.thumbnails.high.url}" alt="">
             <div class="video_info">
-                <img class="video_avatar" src="avatar.jpg" alt="Channel avatar">
+        
+                <img class="video_avatar" src="" alt="Channel avatar">
                 <div class="video_details">
                     <h3 class="video_title">${video.snippet.title}</h3>
                     <div class="video_channel">
@@ -56,6 +71,11 @@ function loadVideo(data) {
             </div>
         </div>
         `
+        const avatarElement = videoElement.querySelector('.video_avatar');
+        getChannelData(video.snippet.channelId, avatarElement)
+
+
+
         videoElement.addEventListener('click', () => {
             fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
                 .then(videoData => videoData.json())

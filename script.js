@@ -1,7 +1,7 @@
 const API_KEY = "YOUR_API_KEY";
 const query = document.getElementById('userSearch');
 const searchBtn = document.getElementById('searchBtn');
-
+const loadedVideo = document.getElementById('loadedVideos');
 
 document.addEventListener('DOMContentLoaded', () => {
     getData();
@@ -12,7 +12,7 @@ query.addEventListener('keydown', (e) => {
     }
 })
 searchBtn.addEventListener('click', () => {
-    document.getElementById('loadedVideos').innerHTML = '';
+    loadedVideo.innerHTML = '';
     getData()
 })
 
@@ -32,13 +32,15 @@ const getData = () => {
         })
 }
 
-
 function loadVideo(data) {
     const videoInfo = data.items;
     videoInfo.forEach((video) => {
         console.log(video.snippet);
-        document.getElementById('loadedVideos').innerHTML += `
-        <div class="video_grid-block">
+        const videoId = video.id.videoId
+        const videoElement = document.createElement('div');
+        videoElement.classList.add('video_grid-block');
+        videoElement.innerHTML = `
+        <div id="videoBlock" class="video_grid-block">
             <img class="video_thumbnail" src="${video.snippet.thumbnails.high.url}" alt="">
             <div class="video_info">
                 <img class="video_avatar" src="avatar.jpg" alt="Channel avatar">
@@ -54,5 +56,14 @@ function loadVideo(data) {
             </div>
         </div>
         `
+        videoElement.addEventListener('click', () => {
+            fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
+                .then(videoData => videoData.json())
+                .then(data => {
+                    console.log(data)
+                })
+        })
+        loadedVideo.appendChild(videoElement);
     })
 }
+

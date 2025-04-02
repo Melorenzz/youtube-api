@@ -1,37 +1,37 @@
 # YouTube Clone
 
-Проект - клон YouTube, созданный с использованием YouTube API для получения данных о видео и каналах. Сайт разрабатывается с использованием SCSS для стилизации.
+Project - a YouTube clone created using the YouTube API to fetch video and channel data. The website is being developed using SCSS for styling.
 
-## 🚀 Технологии
+## 🚀 Technologies
 - HTML
 - CSS / SCSS
 - JavaScript
 - YouTube API
 
-## 📌 Функционал
-- Поиск видео
-- Просмотр информации о видео
-- Отображение списка видео с YouTube
-- Адаптивный дизайн
+## 📌 Functions
+- Video search
+- Viewing video information
+- Displaying a list of videos from YouTube
+- Responsive design
 
-## 🔧 Установка и запуск
-1. Клонируйте репозиторий:
+## 🔧 Installation and Launch
+1. Clone the repository:
    ```sh
-   git clone https://github.com/ТВОЙ_GITHUB/РЕПОЗИТОРИЙ.git
+   git clone https://github.com/YOUR_GITHUB/REPOSITORY.git
    ```
-2. Перейдите в папку проекта:
+2. Navigate to the project folder:
    ```sh
-   cd РЕПОЗИТОРИЙ
+   cd REPOSITORY
    ```
-3. Вставьте свой API
+3. Insert your API key
    ```sh
-    первая строчка в JavaScript
+    The first line in JavaScript
    ```
 
 ## 📜 API
-Для работы с YouTube API необходимо получить API-ключ в [YouTube API](https://developers.google.com/youtube/v3/getting-started?hl=ru). После получения ключа добавьте его в конфигурацию проекта.
+To work with the YouTube API, you need to obtain an API key from [YouTube API](https://developers.google.com/youtube/v3/getting-started?hl=ru). After obtaining the key, add it to the project configuration.
 
 
 
 ---
-_Автор: [Melorenz](https://github.com/melorenzz)_
+_Author: [Melorenz](https://github.com/melorenzz)_

@@ -40,7 +40,6 @@ function getChannelData(channelId, avatarElement) {
             const channelInfo = response.items
             channelInfo.forEach((channel) => {
                 avatarElement.src = `${channel.snippet.thumbnails.default.url}`
-
             })
         })
 }

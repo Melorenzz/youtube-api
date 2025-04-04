@@ -96,7 +96,7 @@ header {
   gap: 10px;
 }
 
-main {
+.main_block-video {
   position: absolute;
   width: calc(100% - 72px);
   top: 54px;
@@ -115,6 +115,17 @@ main {
           justify-content: center;
   gap: 24px;
 }
+.burger > img:first-child {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  overflow: visible;
+  cursor: pointer;
+}
+.burger > img:first-child:hover {
+  background: rgba(128, 128, 128, 0.23);
+}
 
 .burger__logo {
   display: -webkit-box;
@@ -128,6 +139,7 @@ main {
           align-items: center;
   height: 35px;
   gap: 5px;
+  cursor: pointer;
 }
 .burger__logo img {
   height: 35px;
@@ -362,4 +374,61 @@ aside {
 
 .video_views {
   color: rgb(170, 170, 170);
+}
+
+.open_burger {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  width: 100vw;
+  position: fixed;
+  height: 100vh;
+  background: rgba(255, 0, 0, 0.18);
+  z-index: 10;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.open_burger-bg {
+  visibility: visible;
+  opacity: 1;
+}
+
+.open_burger-block {
+  height: 100vh;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  overflow-y: auto;
+  width: 240px;
+  position: absolute;
+  top: 0;
+  left: -300px;
+  background: blue;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(113, 113, 113) transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.open_burger-block::-webkit-scrollbar {
+  width: 8px;
+}
+.open_burger-block::-webkit-scrollbar-track {
+  background: transparent;
+}
+.open_burger-block::-webkit-scrollbar-thumb {
+  background-color: rgb(113, 113, 113);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.open_burger-block:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(145, 145, 145);
+}
+
+.open_burger-block-active {
+  left: 0;
 }

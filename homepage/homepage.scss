@@ -16,25 +16,42 @@ header{
   z-index: 1;
   gap: 10px;
 }
-main{
+
+.main_block-video{
   position: absolute;
   width: calc(100% - 72px);
   top: 54px;
   right: 0;
 }
 
+
 .burger{
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 24px;
+  > img{
+    &:first-child{
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      padding: 10px;
+      overflow: visible;
+      cursor: pointer;
+      &:hover{
+        background: rgba(128, 128, 128, 0.23);
+      }
+    }
+  }
 }
+
 .burger__logo{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 35px;
   gap: 5px;
+  cursor: pointer;
   img{
     height: 35px;
   }
@@ -155,7 +172,6 @@ aside{
 .video_grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-
   gap: 16px;
   padding: 24px;
 }

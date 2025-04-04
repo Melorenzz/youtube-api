@@ -1,0 +1,52 @@
+.open_burger{
+  transition: all .3s;
+  width: 100vw;
+  position: fixed;
+  height: 100vh;
+  //background: rgba(0, 0, 0, 0.17);
+  background: rgba(255, 0, 0, 0.18);
+  z-index: 10;
+  visibility: hidden;
+  opacity: 0;
+}
+.open_burger-bg{
+  visibility: visible;
+  opacity: 1;
+}
+.open_burger-block {
+  height: 100vh;
+  transition: all 0.3s;
+  overflow-y: auto;
+  width: 240px;
+  position: absolute;
+  top: 0;
+  left: -300px;
+  //background: rgb(15, 15, 15);
+  background: blue;
+  scrollbar-width: thin; // Firefox
+  scrollbar-color: rgb(113, 113, 113) transparent;
+  display: flex;
+  flex-direction: column;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(113, 113, 113);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: rgb(145, 145, 145); // чуть ярче при наведении
+  }
+}
+.open_burger-block-active{
+  left: 0;
+}

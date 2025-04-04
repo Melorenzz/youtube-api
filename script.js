@@ -2,6 +2,12 @@ const API_KEY = "AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
 const query = document.getElementById('userSearch');
 const searchBtn = document.getElementById('searchBtn');
 const loadedVideo = document.getElementById('loadedVideos');
+const logo = document.getElementById('logo');
+
+logo.addEventListener('click', (e) => {
+    query.value = '';
+    searchBtn.click()
+})
 
 document.addEventListener('DOMContentLoaded', () => {
     getData();
@@ -47,7 +53,6 @@ function getChannelData(channelId, avatarElement) {
 function loadVideo(data) {
     const videoInfo = data.items;
     videoInfo.forEach((video) => {
-        getChannelData(video.snippet.channelId)
         console.log(video.snippet);
         const videoId = video.id.videoId
         const videoElement = document.createElement('div');
@@ -86,3 +91,17 @@ function loadVideo(data) {
     })
 }
 
+const burger = document.getElementById('burger');
+const burgerBg = document.querySelector('.open_burger');
+const leftMenu = burgerBg.querySelector('.open_burger-block');
+burger.addEventListener('click', (e) => {
+    burgerBg.classList.toggle('open_burger-bg');
+    leftMenu.classList.toggle('open_burger-block-active');
+})
+leftMenu.addEventListener('click', (e) => {
+    e.stopPropagation()
+})
+burgerBg.addEventListener('click', () => {
+    burgerBg.classList.remove('open_burger-bg');
+    leftMenu.classList.remove('open_burger-block-active');
+})

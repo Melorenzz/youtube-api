@@ -33,7 +33,10 @@ const getData = () => {
     sendRequest(url, 'GET')
         .then(response => {
             console.log(response)
-            document.getElementById('userRegion').innerText = response.regionCode;
+            const userRegion = document.querySelectorAll('.userRegion')
+            userRegion.forEach(region => {
+                region.innerText = response.regionCode;
+            })
             loadVideo(response);
         })
 }
@@ -91,13 +94,16 @@ function loadVideo(data) {
     })
 }
 
-const burger = document.getElementById('burger');
+const burger = document.querySelectorAll('.burger__button');
 const burgerBg = document.querySelector('.open_burger');
 const leftMenu = burgerBg.querySelector('.open_burger-block');
-burger.addEventListener('click', (e) => {
-    burgerBg.classList.toggle('open_burger-bg');
-    leftMenu.classList.toggle('open_burger-block-active');
+burger.forEach(element => {
+    element.addEventListener('click', (e) => {
+        burgerBg.classList.toggle('open_burger-bg');
+        leftMenu.classList.toggle('open_burger-block-active');
+    })
 })
+
 leftMenu.addEventListener('click', (e) => {
     e.stopPropagation()
 })

@@ -4,7 +4,7 @@
   position: fixed;
   height: 100vh;
   //background: rgba(0, 0, 0, 0.17);
-  background: rgba(255, 0, 0, 0.18);
+  background: rgba(0, 0, 0, 0.38);
   z-index: 10;
   visibility: hidden;
   opacity: 0;
@@ -21,12 +21,12 @@
   position: absolute;
   top: 0;
   left: -300px;
-  //background: rgb(15, 15, 15);
-  background: blue;
+  background: rgb(15, 15, 15);
   scrollbar-width: thin; // Firefox
   scrollbar-color: rgb(113, 113, 113) transparent;
   display: flex;
   flex-direction: column;
+  padding: 12px;
 
   &::-webkit-scrollbar {
     width: 8px;

@@ -382,7 +382,7 @@ aside {
   width: 100vw;
   position: fixed;
   height: 100vh;
-  background: rgba(255, 0, 0, 0.18);
+  background: rgba(0, 0, 0, 0.38);
   z-index: 10;
   visibility: hidden;
   opacity: 0;
@@ -402,7 +402,7 @@ aside {
   position: absolute;
   top: 0;
   left: -300px;
-  background: blue;
+  background: rgb(15, 15, 15);
   scrollbar-width: thin;
   scrollbar-color: rgb(113, 113, 113) transparent;
   display: -webkit-box;
@@ -412,6 +412,7 @@ aside {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  padding: 12px;
 }
 .open_burger-block::-webkit-scrollbar {
   width: 8px;

@@ -9,14 +9,16 @@ header{
   background: rgb(15, 15, 15);
   height: 56px;
   width: 100vw;
-  padding: 0 26px;
+  padding: 17px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 1;
   gap: 10px;
 }
-
+a{
+  color: white;
+}
 .main_block-video{
   position: absolute;
   width: calc(100% - 72px);
@@ -28,14 +30,13 @@ header{
 .burger{
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
   > img{
     &:first-child{
       border-radius: 50%;
+      box-sizing: border-box;
+      padding: 12px;
       width: 40px;
       height: 40px;
-      padding: 10px;
       overflow: visible;
       cursor: pointer;
       &:hover{
@@ -50,12 +51,13 @@ header{
   justify-content: center;
   align-items: center;
   height: 35px;
+  margin-left: 24px;
   gap: 5px;
   cursor: pointer;
   img{
     height: 35px;
   }
-  h1{
+  p{
     position: relative;
     font-size: 18px;
     font-weight: 600;
@@ -237,4 +239,29 @@ aside{
 
 .video_views{
   color: rgb(170, 170, 170);
+}
+.video_player{
+  width: 500px;
+  height: 200px;
+}
+h1{
+  font-size: 22px;
+  font-weight: 600;
+}
+iframe{
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  max-height: 800px;
+  height: 100%;
+  border-radius: 20px;
+}
+.open_video{
+  display: flex;
+  justify-content: end;
+}
+.open_video-info{
+  width: 65%;
+}
+.open_video-other{
+  width: 30%;
 }

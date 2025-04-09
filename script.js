@@ -1,4 +1,4 @@
-const API_KEY = "AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
+const API_KEY = "*45AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
 const query = document.getElementById('userSearch');
 const searchBtn = document.getElementById('searchBtn');
 const loadedVideo = document.getElementById('loadedVideos');
@@ -88,6 +88,7 @@ function loadVideo(data) {
                 .then(videoData => videoData.json())
                 .then(data => {
                     console.log(data)
+                    loadOpenVideo(`https://www.youtube.com/embed/${data.item.id}`)
                 })
         })
         loadedVideo.appendChild(videoElement);
@@ -111,3 +112,6 @@ burgerBg.addEventListener('click', () => {
     burgerBg.classList.remove('open_burger-bg');
     leftMenu.classList.remove('open_burger-block-active');
 })
+function loadOpenVideo(url){
+    document.getElementById('iframeVideo').src = url;
+}

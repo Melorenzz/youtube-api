@@ -1,4 +1,4 @@
-const API_KEY = "*45AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
+const API_KEY = "AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
 const query = document.getElementById('userSearch');
 const searchBtn = document.getElementById('searchBtn');
 const loadedVideo = document.getElementById('loadedVideos');
@@ -67,9 +67,9 @@ function loadVideo(data) {
         
                 <img class="video_avatar" src="" alt="Channel avatar">
                 <div class="video_details">
-                    <h3 class="video_title">${video.snippet.title}</h3>
+                    <h3 class="video_title"></h3>
                     <div class="video_channel">
-                        <a href="#" class="video_channel-name">${video.snippet.channelTitle}</a>
+                        <a href="#" class="channel_name"></a>
                     </div>
                     <div class="video_stats">
                         <span class="video_views">100K views</span>
@@ -78,17 +78,27 @@ function loadVideo(data) {
             </div>
         </div>
         `
-        const avatarElement = videoElement.querySelector('.video_avatar');
-        getChannelData(video.snippet.channelId, avatarElement)
+        videoElement.querySelectorAll('.video_avatar').forEach(avatar => {
+            getChannelData(video.snippet.channelId, avatar)
+        })
 
+        document.querySelectorAll('.channel_name').forEach(channelName => {
+            channelName.innerText = `${video.snippet.channelTitle}`;
+        })
 
-
+        document.querySelectorAll('.video_title').forEach(videoName => {
+            videoName.innerText = `${video.snippet.title}`;
+        })
         videoElement.addEventListener('click', () => {
             fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
                 .then(videoData => videoData.json())
                 .then(data => {
                     console.log(data)
-                    loadOpenVideo(`https://www.youtube.com/embed/${data.item.id}`)
+                    loadOpenVideo(`https://www.youtube.com/embed/${data.items[0].id}`)
+
+                    document.querySelector('.videoPlayer').style.display = 'block'
+                    document.querySelector('.main_block-video').style.display = 'none'
+                    document.getElementById('homepageAside').style.display = 'none'
                 })
         })
         loadedVideo.appendChild(videoElement);

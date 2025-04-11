@@ -222,11 +222,11 @@ aside{
   margin-right: 8px;
 }
 
-.video_channel-name {
-  font-size: 14px;
-  color: rgb(170, 170, 170);
-  &:hover{
-    color: white;
+.video_details{
+  .channel_name{
+    font-size: 12px;
+    font-weight: 500;
+    color: rgb(170, 170, 170)
   }
 }
 

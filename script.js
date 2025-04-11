@@ -28,8 +28,9 @@ const sendRequest = (url, method) => {
     })
         .then(response => response.json())
 }
+let videoCount = 20;
 const getData = () => {
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query.value}&type=video&maxResults=20&key=${API_KEY}`;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query.value}&type=video&maxResults=${videoCount}&key=${API_KEY}`;
     sendRequest(url, 'GET')
         .then(response => {
             console.log(response)
@@ -64,12 +65,12 @@ function loadVideo(data) {
         <div id="videoBlock" class="video_grid-block">
             <img class="video_thumbnail" src="${video.snippet.thumbnails.high.url}" alt="">
             <div class="video_info">
-        
+                
                 <img class="video_avatar" src="" alt="Channel avatar">
                 <div class="video_details">
-                    <h3 class="video_title"></h3>
+                    <h3 class="video_title">${video.snippet.title}</h3>
                     <div class="video_channel">
-                        <a href="#" class="channel_name"></a>
+                        <a href="#" class="channel_name">${video.snippet.channelTitle}</a>
                     </div>
                     <div class="video_stats">
                         <span class="video_views">100K views</span>
@@ -82,13 +83,6 @@ function loadVideo(data) {
             getChannelData(video.snippet.channelId, avatar)
         })
 
-        document.querySelectorAll('.channel_name').forEach(channelName => {
-            channelName.innerText = `${video.snippet.channelTitle}`;
-        })
-
-        document.querySelectorAll('.video_title').forEach(videoName => {
-            videoName.innerText = `${video.snippet.title}`;
-        })
         videoElement.addEventListener('click', () => {
             fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
                 .then(videoData => videoData.json())
@@ -125,3 +119,14 @@ burgerBg.addEventListener('click', () => {
 function loadOpenVideo(url){
     document.getElementById('iframeVideo').src = url;
 }
+
+window.addEventListener("scroll", function () {
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    if (scrollTop + windowHeight >= documentHeight) {
+        videoCount += 20;
+        getData();
+    }
+});

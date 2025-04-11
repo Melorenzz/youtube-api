@@ -356,12 +356,10 @@ aside {
   margin-right: 8px;
 }
 
-.video_channel-name {
-  font-size: 14px;
+.video_details .channel_name {
+  font-size: 12px;
+  font-weight: 500;
   color: rgb(170, 170, 170);
-}
-.video_channel-name:hover {
-  color: white;
 }
 
 .video_stats {

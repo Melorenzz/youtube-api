@@ -83,16 +83,26 @@ function loadVideo(data) {
             getChannelData(video.snippet.channelId, avatar)
         })
 
-        videoElement.addEventListener('click', () => {
+        videoElement.addEventListener('click', (e) => {
             fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
                 .then(videoData => videoData.json())
                 .then(data => {
-                    console.log(data)
-                    loadOpenVideo(`https://www.youtube.com/embed/${data.items[0].id}`)
+                    const videoInfo = data.items[0];
+                    loadOpenVideo(`https://www.youtube.com/embed/${videoInfo.id}`)
 
                     document.querySelector('.videoPlayer').style.display = 'block'
                     document.querySelector('.main_block-video').style.display = 'none'
                     document.getElementById('homepageAside').style.display = 'none'
+
+                    document.querySelectorAll('.channel_name').forEach(channelName => {
+                        channelName.innerText = `${videoInfo.snippet.channelTitle}`;
+                    })
+                    document.querySelectorAll('.videoDescription').forEach(description => {
+                        description.innerText = `${videoInfo.snippet.description}`;
+                    })
+                    document.querySelectorAll('.viewsCount').forEach(count => {
+                        count.innerText = `${videoInfo.statistics.viewCount} views`
+                    })
                 })
         })
         loadedVideo.appendChild(videoElement);
@@ -126,7 +136,6 @@ window.addEventListener("scroll", function () {
     const documentHeight = document.documentElement.scrollHeight;
 
     if (scrollTop + windowHeight >= documentHeight) {
-        videoCount += 20;
         getData();
     }
 });

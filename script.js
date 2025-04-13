@@ -42,16 +42,30 @@ const getData = () => {
         })
 }
 
-function getChannelData(channelId, avatarElement) {
+function getChannelData(channelId) {
     const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${API_KEY}`;
-    sendRequest(url, 'GET')
+    return sendRequest(url, 'GET')
+
+}
+function getChannelAva(channelId, avatarElement){
+    getChannelData(channelId)
         .then(response => {
-            console.log(response)
             const channelInfo = response.items
             channelInfo.forEach((channel) => {
                 avatarElement.src = `${channel.snippet.thumbnails.default.url}`
             })
         })
+}
+function getChannelSubscribes(channelId){
+    getChannelData(channelId)
+    .then(response => {
+        console.log(response)
+        const subscribes = document.querySelectorAll('.subscribes_count');
+        subscribes.forEach(subscribe => {
+            subscribe.innerText = `${response.items[0].statistics.subscriberCount} subscribes`;
+        })
+    })
+
 }
 
 function loadVideo(data) {
@@ -80,7 +94,7 @@ function loadVideo(data) {
         </div>
         `
         videoElement.querySelectorAll('.video_avatar').forEach(avatar => {
-            getChannelData(video.snippet.channelId, avatar)
+            getChannelAva(video.snippet.channelId, avatar)
         })
 
         videoElement.addEventListener('click', (e) => {
@@ -102,6 +116,14 @@ function loadVideo(data) {
                     })
                     document.querySelectorAll('.viewsCount').forEach(count => {
                         count.innerText = `${videoInfo.statistics.viewCount} views`
+                    })
+                    document.querySelectorAll('.open_video-channel').forEach(channelAva => {
+                        channelAva.querySelectorAll('.video_avatar').forEach(avatar => {
+                            getChannelAva(video.snippet.channelId, avatar)
+                        })
+                    })
+                    document.querySelectorAll('.subscribes_count').forEach(subscribes => {
+                        getChannelSubscribes(video.snippet.channelId)
                     })
                 })
         })

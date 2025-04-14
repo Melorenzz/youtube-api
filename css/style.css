@@ -461,6 +461,7 @@ iframe {
 }
 
 .open_video-description {
+  position: relative;
   margin-top: 10px;
   width: 100%;
   border-radius: 10px;
@@ -470,6 +471,7 @@ iframe {
   max-height: 100px;
   height: 100%;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .views_date {
@@ -506,6 +508,19 @@ iframe {
   -webkit-animation: spin 0.6s linear infinite;
           animation: spin 0.6s linear infinite;
   margin: 20px auto;
+}
+
+.more_description {
+  position: absolute;
+  right: 15px;
+  bottom: 5px;
+  font-weight: 600;
+}
+
+.open_description {
+  max-height: -webkit-fit-content;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
 }
 
 @-webkit-keyframes spin {

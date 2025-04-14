@@ -82,7 +82,7 @@ function loadVideo(data) {
                 
                 <img class="video_avatar" src="" alt="Channel avatar">
                 <div class="video_details">
-                    <h3 class="video_title">${video.snippet.title}</h3>
+                    <h3 class="video_title"></h3>
                     <div class="video_channel">
                         <a href="#" class="channel_name">${video.snippet.channelTitle}</a>
                     </div>
@@ -125,6 +125,9 @@ function loadVideo(data) {
                     document.querySelectorAll('.subscribes_count').forEach(subscribes => {
                         getChannelSubscribes(video.snippet.channelId)
                     })
+                    document.querySelectorAll('.video_title').forEach(title => {
+                        title.innerText = `${video.snippet.title}`
+                    })
                 })
         })
         loadedVideo.appendChild(videoElement);
@@ -161,3 +164,7 @@ window.addEventListener("scroll", function () {
         getData();
     }
 });
+const openVideoDescription = document.getElementById('openVideoDescription');
+openVideoDescription.addEventListener('click', () => {
+    openVideoDescription.classList.toggle('open_description');
+})

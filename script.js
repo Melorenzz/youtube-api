@@ -82,7 +82,7 @@ function loadVideo(data) {
                 
                 <img class="video_avatar" src="" alt="Channel avatar">
                 <div class="video_details">
-                    <h3 class="video_title"></h3>
+                    <h3 class="video_title">${video.snippet.title}</h3>
                     <div class="video_channel">
                         <a href="#" class="channel_name">${video.snippet.channelTitle}</a>
                     </div>
@@ -104,9 +104,7 @@ function loadVideo(data) {
                     const videoInfo = data.items[0];
                     loadOpenVideo(`https://www.youtube.com/embed/${videoInfo.id}`)
 
-                    document.querySelector('.videoPlayer').style.display = 'block'
-                    document.querySelector('.main_block-video').style.display = 'none'
-                    document.getElementById('homepageAside').style.display = 'none'
+                    openVideo(videoInfo.id)
 
                     document.querySelectorAll('.channel_name').forEach(channelName => {
                         channelName.innerText = `${videoInfo.snippet.channelTitle}`;
@@ -134,13 +132,37 @@ function loadVideo(data) {
     })
 }
 
+function openVideo(videoId){
+    history.pushState({videoOpen: true}, '', `?video=${videoId}`)
+    document.querySelector('.videoPlayer').style.display = 'block'
+    document.querySelector('.main_block-video').style.display = 'none'
+    document.getElementById('homepageAside').style.display = 'none'
+
+}
+window.addEventListener('popstate', (event) => {
+    if (!event.state?.videoOpen) {
+        document.querySelector('.videoPlayer').style.display = 'none';
+        document.querySelector('.main_block-video').style.display = 'block';
+        document.getElementById('homepageAside').style.display = 'block';
+    }
+});
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoId = urlParams.get('video');
+
+    if (videoId) {
+        openVideo(videoId);
+    }
+});
+
 const burger = document.querySelectorAll('.burger__button');
 const burgerBg = document.querySelector('.open_burger');
 const leftMenu = burgerBg.querySelector('.open_burger-block');
+
 burger.forEach(element => {
     element.addEventListener('click', (e) => {
-        burgerBg.classList.toggle('open_burger-bg');
-        leftMenu.classList.toggle('open_burger-block-active');
+        burgerBg.classList.add('open_burger-bg');
+        leftMenu.classList.add('open_burger-block-active');
     })
 })
 

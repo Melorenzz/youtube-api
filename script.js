@@ -1,4 +1,5 @@
 const API_KEY = "AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
+
 const query = document.getElementById('userSearch');
 const searchBtn = document.getElementById('searchBtn');
 const loadedVideo = document.getElementById('loadedVideos');
@@ -42,6 +43,7 @@ const getData = () => {
         })
 }
 
+
 function getChannelData(channelId) {
     const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${API_KEY}`;
     return sendRequest(url, 'GET')
@@ -65,7 +67,6 @@ function getChannelSubscribes(channelId){
             subscribe.innerText = `${response.items[0].statistics.subscriberCount} subscribes`;
         })
     })
-
 }
 
 function loadVideo(data) {
@@ -79,7 +80,6 @@ function loadVideo(data) {
         <div id="videoBlock" class="video_grid-block">
             <img class="video_thumbnail" src="${video.snippet.thumbnails.high.url}" alt="">
             <div class="video_info">
-                
                 <img class="video_avatar" src="" alt="Channel avatar">
                 <div class="video_details">
                     <h3 class="video_title">${video.snippet.title}</h3>
@@ -87,7 +87,7 @@ function loadVideo(data) {
                         <a href="#" class="channel_name">${video.snippet.channelTitle}</a>
                     </div>
                     <div class="video_stats">
-                        <span class="video_views">100K views</span>
+                        <span class="viewsCount">100K views</span>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@ function loadVideo(data) {
             getChannelAva(video.snippet.channelId, avatar)
         })
 
-        videoElement.addEventListener('click', (e) => {
+        videoElement.addEventListener('click', () => {
             fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
                 .then(videoData => videoData.json())
                 .then(data => {
@@ -126,11 +126,75 @@ function loadVideo(data) {
                     document.querySelectorAll('.video_title').forEach(title => {
                         title.innerText = `${video.snippet.title}`
                     })
+
                 })
+            loadOtherVideos(data)
         })
         loadedVideo.appendChild(videoElement);
     })
 }
+function loadOtherVideos(data) {
+    const videoInfo = data.items;
+    const container = document.querySelector('.open_video-other');
+    container.innerHTML = ''; // Очищаем контейнер перед загрузкой новых видео
+
+    videoInfo.forEach((video) => {
+        const videoId = video.id.videoId;
+        const videoElement = document.createElement('div');
+        videoElement.classList.add('open_video-block');
+        videoElement.innerHTML = `
+            <img class="video_thumbnail" src="${video.snippet.thumbnails.high.url}" alt="Video thumbnail">
+            <div class="video_info">
+                <div class="video_details">
+                    <h3 class="video_title">${video.snippet.title}</h3>
+                    <div class="video_channel">
+                        <a href="#" class="channel_name">${video.snippet.channelTitle}</a>
+                    </div>
+                    <div class="video_stats">
+                        <span class="video_views">100K views</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        videoElement.addEventListener('click', () => {
+            fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
+                .then(videoData => videoData.json())
+                .then(data => {
+                    const videoInfo = data.items[0];
+                    loadOpenVideo(`https://www.youtube.com/embed/${videoInfo.id}`);
+                    openVideo(videoInfo.id);
+
+                    document.querySelectorAll('.channel_name').forEach(channelName => {
+                        channelName.innerText = `${videoInfo.snippet.channelTitle}`;
+                    });
+
+                    document.querySelectorAll('.videoDescription').forEach(description => {
+                        description.innerText = `${videoInfo.snippet.description}`;
+                    });
+
+                    document.querySelectorAll('.video_views').forEach(views => {
+                        views.innerText = `${videoInfo.statistics.viewCount} views`;
+                    });
+
+                    document.querySelectorAll('.open_video-channel .video_avatar').forEach(avatar => {
+                        getChannelAva(video.snippet.channelId, avatar);
+                    });
+
+                    document.querySelectorAll('.subscribes_count').forEach(subs => {
+                        getChannelSubscribes(video.snippet.channelId);
+                    });
+
+                    document.querySelectorAll('.video_title').forEach(title => {
+                        title.innerText = `${video.snippet.title}`;
+                    });
+                });
+        });
+
+        container.appendChild(videoElement);
+    });
+}
+
 
 function openVideo(videoId){
     history.pushState({videoOpen: true}, '', `?video=${videoId}`)
@@ -184,8 +248,9 @@ window.addEventListener("scroll", function () {
 
     if (scrollTop + windowHeight >= documentHeight) {
         getData();
+
     }
-});
+})
 const openVideoDescription = document.getElementById('openVideoDescription');
 openVideoDescription.addEventListener('click', () => {
     openVideoDescription.classList.toggle('open_description');

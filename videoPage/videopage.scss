@@ -72,3 +72,34 @@
   }
 
 }
+.open_video-block{
+  display: flex;
+  gap: 7px;
+  width: 100%;
+  cursor: pointer;
+  .video_thumbnail {
+    border-radius: 10px;
+    background: #ccc;
+    height: 94px;
+    width: 168px;
+  }
+  .video_title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    max-width: 250px;
+    max-height: 40px;
+    overflow: hidden;
+    line-height: 18px;
+    word-wrap: break-word;
+  }
+  .video_details{
+    .channel_name{
+      font-size: 12px;
+      font-weight: 500;
+      color: rgb(170, 170, 170)
+    }
+  }
+
+}
+

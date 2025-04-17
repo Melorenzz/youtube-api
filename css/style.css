@@ -313,29 +313,31 @@ aside {
       -ms-flex-direction: column;
           flex-direction: column;
 }
-
-.video_thumbnail {
+.video_grid-block .video_thumbnail {
   border-radius: 10px;
   background: #ccc;
   height: 250px;
   width: 100%;
 }
-
-.video_info {
+.video_grid-block .video_info {
   margin-top: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   gap: 5px;
 }
-
-.video_title {
+.video_grid-block .video_title {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 8px;
   max-width: 400px;
   line-height: 22px;
   word-wrap: break-word;
+}
+.video_grid-block .video_details .channel_name {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(170, 170, 170);
 }
 
 .video_channel {
@@ -354,12 +356,6 @@ aside {
   height: 35px;
   width: 35px;
   margin-right: 8px;
-}
-
-.video_details .channel_name {
-  font-size: 12px;
-  font-weight: 500;
-  color: rgb(170, 170, 170);
 }
 
 .video_stats {
@@ -391,7 +387,7 @@ h1 {
 iframe {
   aspect-ratio: 16/9;
   width: 100%;
-  max-height: 800px;
+  max-height: 700px;
   height: 100%;
   border-radius: 20px;
 }
@@ -403,10 +399,11 @@ iframe {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: end;
+  margin-top: 70px;
 }
 
 .open_video-info {
-  width: 65%;
+  width: 72%;
 }
 .open_video-info hr {
   width: 100%;
@@ -415,7 +412,19 @@ iframe {
 }
 
 .open_video-other {
-  width: 30%;
+  width: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  padding: 0 20px 0 20px;
 }
 
 .open_video-channel {
@@ -626,4 +635,34 @@ iframe {
 }
 .open_burger-nav .block p {
   margin-left: 20px;
+}
+
+.open_video-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 7px;
+  width: 100%;
+  cursor: pointer;
+}
+.open_video-block .video_thumbnail {
+  border-radius: 10px;
+  background: #ccc;
+  height: 94px;
+  width: 168px;
+}
+.open_video-block .video_title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  max-width: 250px;
+  max-height: 40px;
+  overflow: hidden;
+  line-height: 18px;
+  word-wrap: break-word;
+}
+.open_video-block .video_details .channel_name {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(170, 170, 170);
 }

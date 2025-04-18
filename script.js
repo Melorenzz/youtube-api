@@ -77,17 +77,29 @@ function clickOnVideo(videoId, video){
         .then(videoData => videoData.json())
         .then(data => {
             const videoInfo = data.items[0];
-            loadOpenVideo(`https://www.youtube.com/embed/${videoInfo.id}`);
+            loadOpenVideo(`https://www.youtube.com/embed/${videoId}`);
             openVideo(videoInfo.id);
 
             document.getElementById('channelNameOpenVideo').innerText = `${videoInfo.snippet.channelTitle}`;
 
-            document.getElementById('subscribesCountOpenVideo').innerText = `${videoInfo.snippet.description}`;
+            document.getElementById('subscribesCountOpenVideo').innerText = `${videoInfo.statistics.subscriberCount}`;
 
             document.getElementById('viewsCountOpenVideo').innerText = `${videoInfo.statistics.viewCount} views`;
 
+            document.getElementById('videoDescriptionOpen').innerText = `${videoInfo.snippet.description}`;
 
-            document.querySelector('.open_video-channel .video_avatar').forEach(avatar => {
+            const months = [
+                'Jan', 'Feb', 'Mar', 'Apr', 'May', 'June',
+                'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+            ];
+            const date = new Date(videoInfo.snippet.publishedAt);
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+            const year = date.getFullYear();
+
+            document.getElementById('publishedDateOpenVideo').innerText = `${month} ${day}, ${year}`;
+
+            document.querySelectorAll('.open_video-channel .video_avatar').forEach(avatar => {
                 getChannelAva(video.snippet.channelId, avatar);
             });
 
@@ -172,7 +184,8 @@ function openVideo(videoId){
     document.querySelector('.videoPlayer').style.display = 'block'
     document.querySelector('.main_block-video').style.display = 'none'
     document.getElementById('homepageAside').style.display = 'none'
-
+    clickOnVideo(videoId);
+    // loadOtherVideos();
 }
 window.addEventListener('popstate', (event) => {
     if (!event.state?.videoOpen) {
@@ -184,7 +197,7 @@ window.addEventListener('popstate', (event) => {
 window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('video');
-
+    console.log(videoId);
     if (videoId) {
         openVideo(videoId);
     }
@@ -196,10 +209,13 @@ const leftMenu = burgerBg.querySelector('.open_burger-block');
 
 burger.forEach(element => {
     element.addEventListener('click', (e) => {
-        burgerBg.classList.add('open_burger-bg');
-        leftMenu.classList.add('open_burger-block-active');
+        burgerBg.classList.toggle('open_burger-bg');
+        leftMenu.classList.toggle('open_burger-block-active');
+
     })
 })
+
+
 
 leftMenu.addEventListener('click', (e) => {
     e.stopPropagation()
@@ -222,6 +238,29 @@ window.addEventListener("scroll", function () {
     }
 })
 const openVideoDescription = document.getElementById('openVideoDescription');
+const showLessBtn = document.getElementById('lessDescriptionBtn')
+let isOpenDescription = false;
+
+function openDescription(){
+    openVideoDescription.classList.add('open_description');
+    document.getElementById('lessDescriptionBtn').innerText = 'Show less';
+    openVideoDescription.classList.add('clickedDescription')
+    isOpenDescription = true;
+}
+
 openVideoDescription.addEventListener('click', () => {
-    openVideoDescription.classList.toggle('open_description');
+    if(!isOpenDescription){
+        openDescription();
+    }
+})
+showLessBtn.addEventListener('click', (e) => {
+    e.stopPropagation()
+    if(isOpenDescription){
+        openVideoDescription.classList.remove('open_description');
+        document.getElementById('lessDescriptionBtn').innerText = '...more';
+        openVideoDescription.classList.remove('clickedDescription')
+        isOpenDescription = false;
+    }else{
+        openDescription()
+    }
 })

@@ -41,6 +41,9 @@ const getData = () => {
             })
             loadVideo(response);
         })
+        .catch(() => {
+            console.log('')
+        })
 }
 
 
@@ -69,6 +72,33 @@ function getChannelSubscribes(channelId){
     })
 }
 
+function clickOnVideo(videoId, video){
+    fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
+        .then(videoData => videoData.json())
+        .then(data => {
+            const videoInfo = data.items[0];
+            loadOpenVideo(`https://www.youtube.com/embed/${videoInfo.id}`);
+            openVideo(videoInfo.id);
+
+            document.getElementById('channelNameOpenVideo').innerText = `${videoInfo.snippet.channelTitle}`;
+
+            document.getElementById('subscribesCountOpenVideo').innerText = `${videoInfo.snippet.description}`;
+
+            document.getElementById('viewsCountOpenVideo').innerText = `${videoInfo.statistics.viewCount} views`;
+
+
+            document.querySelector('.open_video-channel .video_avatar').forEach(avatar => {
+                getChannelAva(video.snippet.channelId, avatar);
+            });
+
+            document.querySelectorAll('.subscribes_count').forEach(subs => {
+                getChannelSubscribes(video.snippet.channelId);
+            });
+
+            document.getElementById('videoTitleOpenVideo').innerText = `${video.snippet.title}`;
+
+        });
+}
 function loadVideo(data) {
     const videoInfo = data.items;
     videoInfo.forEach((video) => {
@@ -98,36 +128,7 @@ function loadVideo(data) {
         })
 
         videoElement.addEventListener('click', () => {
-            fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
-                .then(videoData => videoData.json())
-                .then(data => {
-                    const videoInfo = data.items[0];
-                    loadOpenVideo(`https://www.youtube.com/embed/${videoInfo.id}`)
-
-                    openVideo(videoInfo.id)
-
-                    document.querySelectorAll('.channel_name').forEach(channelName => {
-                        channelName.innerText = `${videoInfo.snippet.channelTitle}`;
-                    })
-                    document.querySelectorAll('.videoDescription').forEach(description => {
-                        description.innerText = `${videoInfo.snippet.description}`;
-                    })
-                    document.querySelectorAll('.viewsCount').forEach(count => {
-                        count.innerText = `${videoInfo.statistics.viewCount} views`
-                    })
-                    document.querySelectorAll('.open_video-channel').forEach(channelAva => {
-                        channelAva.querySelectorAll('.video_avatar').forEach(avatar => {
-                            getChannelAva(video.snippet.channelId, avatar)
-                        })
-                    })
-                    document.querySelectorAll('.subscribes_count').forEach(subscribes => {
-                        getChannelSubscribes(video.snippet.channelId)
-                    })
-                    document.querySelectorAll('.video_title').forEach(title => {
-                        title.innerText = `${video.snippet.title}`
-                    })
-
-                })
+            clickOnVideo(videoId, video);
             loadOtherVideos(data)
         })
         loadedVideo.appendChild(videoElement);
@@ -136,7 +137,7 @@ function loadVideo(data) {
 function loadOtherVideos(data) {
     const videoInfo = data.items;
     const container = document.querySelector('.open_video-other');
-    container.innerHTML = ''; // Очищаем контейнер перед загрузкой новых видео
+    container.innerHTML = '';
 
     videoInfo.forEach((video) => {
         const videoId = video.id.videoId;
@@ -158,37 +159,7 @@ function loadOtherVideos(data) {
         `;
 
         videoElement.addEventListener('click', () => {
-            fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
-                .then(videoData => videoData.json())
-                .then(data => {
-                    const videoInfo = data.items[0];
-                    loadOpenVideo(`https://www.youtube.com/embed/${videoInfo.id}`);
-                    openVideo(videoInfo.id);
-
-                    document.querySelectorAll('.channel_name').forEach(channelName => {
-                        channelName.innerText = `${videoInfo.snippet.channelTitle}`;
-                    });
-
-                    document.querySelectorAll('.videoDescription').forEach(description => {
-                        description.innerText = `${videoInfo.snippet.description}`;
-                    });
-
-                    document.querySelectorAll('.video_views').forEach(views => {
-                        views.innerText = `${videoInfo.statistics.viewCount} views`;
-                    });
-
-                    document.querySelectorAll('.open_video-channel .video_avatar').forEach(avatar => {
-                        getChannelAva(video.snippet.channelId, avatar);
-                    });
-
-                    document.querySelectorAll('.subscribes_count').forEach(subs => {
-                        getChannelSubscribes(video.snippet.channelId);
-                    });
-
-                    document.querySelectorAll('.video_title').forEach(title => {
-                        title.innerText = `${video.snippet.title}`;
-                    });
-                });
+            clickOnVideo(videoId, video);
         });
 
         container.appendChild(videoElement);
@@ -248,7 +219,6 @@ window.addEventListener("scroll", function () {
 
     if (scrollTop + windowHeight >= documentHeight) {
         getData();
-
     }
 })
 const openVideoDescription = document.getElementById('openVideoDescription');

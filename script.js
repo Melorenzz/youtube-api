@@ -1,9 +1,11 @@
-const API_KEY = "AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
+const API_KEY = "AIzaSyDwTmOzLh9RERdt7QIGwyZQMSev1t51r8g";
 
 const query = document.getElementById('userSearch');
 const searchBtn = document.getElementById('searchBtn');
 const loadedVideo = document.getElementById('loadedVideos');
 const logo = document.getElementById('logo');
+
+const subscribesCountOpenVideo = document.getElementById('subscribesCountOpenVideo')
 
 logo.addEventListener('click', (e) => {
     query.value = '';
@@ -30,20 +32,20 @@ const sendRequest = (url, method) => {
         .then(response => response.json())
 }
 let videoCount = 20;
-const getData = () => {
+const getDataTest = () => {
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query.value}&type=video&maxResults=${videoCount}&key=${API_KEY}`;
-    sendRequest(url, 'GET')
+    return sendRequest(url, 'GET')
+}
+const getData = () => {
+    getDataTest()
         .then(response => {
             console.log(response)
             const userRegion = document.querySelectorAll('.userRegion')
             userRegion.forEach(region => {
                 region.innerText = response.regionCode;
             })
-            loadVideo(response);
-        })
-        .catch(() => {
-            console.log('')
-        })
+            loadOpenVideo(response);
+    })
 }
 
 
@@ -61,14 +63,15 @@ function getChannelAva(channelId, avatarElement){
             })
         })
 }
-function getChannelSubscribes(channelId){
+function getChannelSubscribers(channelId){
     getChannelData(channelId)
     .then(response => {
         console.log(response)
-        const subscribes = document.querySelectorAll('.subscribes_count');
-        subscribes.forEach(subscribe => {
-            subscribe.innerText = `${response.items[0].statistics.subscriberCount} subscribes`;
-        })
+        document.getElementById('subscribesCountOpenVideo').innerText = `${response.items[0].statistics.subscriberCount} subscribers`;
+        // const subscribesCountOpenVideo = document.querySelectorAll('subscribesCountOpenVideo');
+        // subscribes.forEach(subscribe => {
+        //     subscribe.innerText = `${response.items[0].statistics.subscriberCount} subscribers`;
+        // })
     })
 }
 
@@ -77,12 +80,12 @@ function clickOnVideo(videoId, video){
         .then(videoData => videoData.json())
         .then(data => {
             const videoInfo = data.items[0];
-            loadOpenVideo(`https://www.youtube.com/embed/${videoId}`);
-            openVideo(videoInfo.id);
+            loadOpenVideoUrl(`https://www.youtube.com/embed/${videoId}`);
+            openVideo(videoId);
 
             document.getElementById('channelNameOpenVideo').innerText = `${videoInfo.snippet.channelTitle}`;
 
-            document.getElementById('subscribesCountOpenVideo').innerText = `${videoInfo.statistics.subscriberCount}`;
+            subscribesCountOpenVideo.innerText = `${videoInfo.statistics.subscriberCount}`;
 
             document.getElementById('viewsCountOpenVideo').innerText = `${videoInfo.statistics.viewCount} views`;
 
@@ -99,19 +102,15 @@ function clickOnVideo(videoId, video){
 
             document.getElementById('publishedDateOpenVideo').innerText = `${month} ${day}, ${year}`;
 
-            document.querySelectorAll('.open_video-channel .video_avatar').forEach(avatar => {
-                getChannelAva(video.snippet.channelId, avatar);
-            });
-
             document.querySelectorAll('.subscribes_count').forEach(subs => {
-                getChannelSubscribes(video.snippet.channelId);
+                getChannelSubscribers(video.snippet.channelId);
             });
 
             document.getElementById('videoTitleOpenVideo').innerText = `${video.snippet.title}`;
 
         });
 }
-function loadVideo(data) {
+function loadOpenVideo(data) {
     const videoInfo = data.items;
     videoInfo.forEach((video) => {
         console.log(video.snippet);
@@ -184,8 +183,7 @@ function openVideo(videoId){
     document.querySelector('.videoPlayer').style.display = 'block'
     document.querySelector('.main_block-video').style.display = 'none'
     document.getElementById('homepageAside').style.display = 'none'
-    clickOnVideo(videoId);
-    // loadOtherVideos();
+    loadVideo(videoId)
 }
 window.addEventListener('popstate', (event) => {
     if (!event.state?.videoOpen) {
@@ -224,7 +222,8 @@ burgerBg.addEventListener('click', () => {
     burgerBg.classList.remove('open_burger-bg');
     leftMenu.classList.remove('open_burger-block-active');
 })
-function loadOpenVideo(url){
+
+function loadOpenVideoUrl(url){
     document.getElementById('iframeVideo').src = url;
 }
 
@@ -264,3 +263,47 @@ showLessBtn.addEventListener('click', (e) => {
         openDescription()
     }
 })
+
+
+//==============TEST===================
+
+function loadVideo(videoId) {
+    fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
+        .then(videoData => videoData.json())
+        .then(data => {
+            console.log(data)
+            const videoInfo = data.items[0];
+            loadOpenVideoUrl(`https://www.youtube.com/embed/${videoId}`);
+            getChannelSubscribers(videoInfo.snippet.channelId)
+            document.getElementById('videoTitleOpenVideo').innerText = `${data.items[0].snippet.title}`;
+            document.getElementById('channelNameOpenVideo').innerText = `${videoInfo.snippet.channelTitle}`;
+            document.getElementById('viewsCountOpenVideo').innerText = `${videoInfo.statistics.viewCount} views`;
+            document.getElementById('videoDescriptionOpen').innerText = `${videoInfo.snippet.description}`;
+
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const date = new Date(videoInfo.snippet.publishedAt);
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+            const year = date.getFullYear();
+
+            document.getElementById('publishedDateOpenVideo').innerText = `${month} ${day}, ${year}`;
+
+            const avatar = document.getElementById('openVideoAva');
+            if (avatar) {
+                getChannelData(videoInfo.snippet.channelId)
+                    .then(data => {
+                        avatar.src = data.items[0].snippet.thumbnails.default.url;
+                        subscribesCountOpenVideo.innetText = data.items[0].statistics.subscriberCount;
+                        // document.querySelectorAll('.subscribes_count').forEach(subs => {
+                        //     getChannelSubscribers(video.snippet.channelId);
+                        // });
+                    })
+            }
+
+
+        });
+    getDataTest()
+        .then(response => {
+            loadOtherVideos(response);
+        })
+}

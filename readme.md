@@ -33,7 +33,7 @@ To work with the YouTube API, you need to obtain an API key from [YouTube API](h
 
 How to Get YouTube API Key **(Please note, this is not my guide)**:
    ```sh
-   [https://www.youtube.com/watch?v=LLAZUTbc97I](https://www.youtube.com/watch?v=LLAZUTbc97I)
+   https://www.youtube.com/watch?v=LLAZUTbc97I
    ```
 
 ---

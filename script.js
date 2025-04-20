@@ -1,9 +1,10 @@
-const API_KEY = "AIzaSyDwTmOzLh9RERdt7QIGwyZQMSev1t51r8g";
+const API_KEY = "YOUR_API_KEY";
 
 const query = document.getElementById('userSearch');
 const searchBtn = document.getElementById('searchBtn');
 const loadedVideo = document.getElementById('loadedVideos');
 const logo = document.getElementById('logo');
+const title = document.getElementById('title');
 
 const subscribesCountOpenVideo = document.getElementById('subscribesCountOpenVideo')
 
@@ -14,6 +15,16 @@ logo.addEventListener('click', (e) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     getData();
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoId = urlParams.get('video');
+    const query = urlParams.get('query');
+    console.log(videoId);
+    if (videoId) {
+        openVideo(videoId);
+    }else if(query){
+        console.log(query)
+        pushStateQuery(query);
+    }
 })
 query.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
@@ -22,6 +33,8 @@ query.addEventListener('keydown', (e) => {
 })
 searchBtn.addEventListener('click', () => {
     loadedVideo.innerHTML = '';
+    console.log(query.value)
+    pushStateQuery(query.value)
     getData()
 })
 
@@ -33,6 +46,8 @@ const sendRequest = (url, method) => {
 }
 let videoCount = 20;
 const getDataTest = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    query.value = urlParams.get('query');
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query.value}&type=video&maxResults=${videoCount}&key=${API_KEY}`;
     return sendRequest(url, 'GET')
 }
@@ -83,6 +98,7 @@ function clickOnVideo(videoId, video){
             loadOpenVideoUrl(`https://www.youtube.com/embed/${videoId}`);
             openVideo(videoId);
 
+
             document.getElementById('channelNameOpenVideo').innerText = `${videoInfo.snippet.channelTitle}`;
 
             subscribesCountOpenVideo.innerText = `${videoInfo.statistics.subscriberCount}`;
@@ -107,7 +123,7 @@ function clickOnVideo(videoId, video){
             });
 
             document.getElementById('videoTitleOpenVideo').innerText = `${video.snippet.title}`;
-
+            title.innerText = `${video.snippet.title}`;
         });
 }
 function loadOpenVideo(data) {
@@ -178,28 +194,6 @@ function loadOtherVideos(data) {
 }
 
 
-function openVideo(videoId){
-    history.pushState({videoOpen: true}, '', `?video=${videoId}`)
-    document.querySelector('.videoPlayer').style.display = 'block'
-    document.querySelector('.main_block-video').style.display = 'none'
-    document.getElementById('homepageAside').style.display = 'none'
-    loadVideo(videoId)
-}
-window.addEventListener('popstate', (event) => {
-    if (!event.state?.videoOpen) {
-        document.querySelector('.videoPlayer').style.display = 'none';
-        document.querySelector('.main_block-video').style.display = 'block';
-        document.getElementById('homepageAside').style.display = 'block';
-    }
-});
-window.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const videoId = urlParams.get('video');
-    console.log(videoId);
-    if (videoId) {
-        openVideo(videoId);
-    }
-});
 
 const burger = document.querySelectorAll('.burger__button');
 const burgerBg = document.querySelector('.open_burger');
@@ -264,8 +258,24 @@ showLessBtn.addEventListener('click', (e) => {
     }
 })
 
-
-//==============TEST===================
+function openVideo(videoId){
+    history.pushState({videoOpen: true}, '', `?video=${videoId}`)
+    document.querySelector('.videoPlayer').style.display = 'block'
+    document.querySelector('.main_block-video').style.display = 'none'
+    document.getElementById('homepageAside').style.display = 'none'
+    loadVideo(videoId)
+}
+window.addEventListener('popstate', (event) => {
+    if (!event.state?.videoOpen) {
+        document.querySelector('.videoPlayer').style.display = 'none';
+        document.querySelector('.main_block-video').style.display = 'block';
+        if(window.innerWidth <= 870){
+            document.getElementById('homepageAside').style.display = 'none';
+        }else{
+            document.getElementById('homepageAside').style.display = 'block';
+        }
+    }
+});
 
 function loadVideo(videoId) {
     fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
@@ -276,6 +286,7 @@ function loadVideo(videoId) {
             loadOpenVideoUrl(`https://www.youtube.com/embed/${videoId}`);
             getChannelSubscribers(videoInfo.snippet.channelId)
             document.getElementById('videoTitleOpenVideo').innerText = `${data.items[0].snippet.title}`;
+            title.innerText = `${data.items[0].snippet.title}`;
             document.getElementById('channelNameOpenVideo').innerText = `${videoInfo.snippet.channelTitle}`;
             document.getElementById('viewsCountOpenVideo').innerText = `${videoInfo.statistics.viewCount} views`;
             document.getElementById('videoDescriptionOpen').innerText = `${videoInfo.snippet.description}`;
@@ -307,3 +318,15 @@ function loadVideo(videoId) {
             loadOtherVideos(response);
         })
 }
+
+function pushStateQuery(userQuery){
+    history.pushState({}, '', `?query=${userQuery}`)
+    query.value = userQuery;
+    title.innerText = userQuery + ' - YouTube';
+}
+
+//===============GET COMMENTS UNDER VIDEO=======================
+
+// https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=7jUUse6b17c&maxResults=20&key=AIzaSyATaE3UtRDWbuxDoHOodW2LfhiHaViI5aY
+
+//==============================================================

@@ -31,7 +31,10 @@ Project - a YouTube clone created using the YouTube API to fetch video and chann
 ## 📜 API
 To work with the YouTube API, you need to obtain an API key from [YouTube API](https://developers.google.com/youtube/v3/getting-started?hl=ru). After obtaining the key, add it to the project configuration.
 
-
+How to Get YouTube API Key **(Please note, this is not my guide)**:
+   ```sh
+   https://www.youtube.com/watch?v=LLAZUTbc97I
+   ```
 
 ---
 _Author: [Melorenz](https://github.com/melorenzz)_

@@ -1,4 +1,4 @@
-const API_KEY = "YOUR_API_KEY";
+const API_KEY = "AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
 
 const query = document.getElementById('userSearch');
 const searchBtn = document.getElementById('searchBtn');
@@ -67,7 +67,6 @@ const getData = () => {
 function getChannelData(channelId) {
     const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${API_KEY}`;
     return sendRequest(url, 'GET')
-
 }
 function getChannelAva(channelId, avatarElement){
     getChannelData(channelId)
@@ -124,6 +123,8 @@ function clickOnVideo(videoId, video){
 
             document.getElementById('videoTitleOpenVideo').innerText = `${video.snippet.title}`;
             title.innerText = `${video.snippet.title}`;
+
+            getComments(videoId)
         });
 }
 function loadOpenVideo(data) {
@@ -313,10 +314,13 @@ function loadVideo(videoId) {
 
 
         });
+    getComments(videoId);
+
     getDataTest()
         .then(response => {
             loadOtherVideos(response);
         })
+
 }
 
 function pushStateQuery(userQuery){
@@ -327,6 +331,32 @@ function pushStateQuery(userQuery){
 
 //===============GET COMMENTS UNDER VIDEO=======================
 
-// https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=7jUUse6b17c&maxResults=20&key=AIzaSyATaE3UtRDWbuxDoHOodW2LfhiHaViI5aY
+function getComments(videoId){
+    fetch(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&key=${API_KEY}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('UNDER COMMENTS API')
+            console.log(data)
+            const commentInfo = data.items;
+            const videoComments = document.getElementById('videoComments');
+            videoComments.innerHTML = '';
+            commentInfo.forEach(comment => {
+                videoComments.innerHTML += `
+                    <div class="comment">
+                        <img class="comment_ava" src="${comment.snippet.topLevelComment.snippet.authorProfileImageUrl}" alt="Ava">
+                        <div class="comment_info">
+                            <p class="comment_username">${comment.snippet.topLevelComment.snippet.authorDisplayName}</p>
+                            <p class="comment_text">${comment.snippet.topLevelComment.snippet.textDisplay}</p>
+                        </div>
+                    </div>
+            `;
+            })
+
+        })
+}
 
 //==============================================================
+
+// TODO LIST
+// 1. Add comments under video
+// 2. Add channel page

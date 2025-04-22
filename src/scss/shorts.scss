@@ -1,0 +1,21 @@
+main{
+  width: 100%;
+  height: 100%;
+}
+.shorts_video{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  height: fit-content;
+  margin-top: 70px;
+
+
+}
+.shorts_video-block{
+  height: 849px;
+  width: 500px;
+  background: red;
+  border-radius: 10px;
+}

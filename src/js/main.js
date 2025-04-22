@@ -5,3 +5,4 @@ import '../scss/style.scss';
 import '../js/loadPage.js'
 import '../js/loadVideos.js'
 import './burger.js'
+import './pshlka.js'

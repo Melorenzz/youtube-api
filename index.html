@@ -7,6 +7,7 @@
   <link rel="icon" href="./img/icons/favicon.png" type="image/x-icon">
 </head>
 <body>
+
 <header>
   <div class="burger">
     <img class="burger__button" src="img/icons/burger.svg" alt="burger">
@@ -167,6 +168,23 @@
       </nav>
     </nav>
   </section>
+  <div id="pshlka" style=" display: none; z-index: 10; align-items: center; justify-content: center; position: absolute; transform: translate(-50%, -50%); top: 50%; left: 50%; width: 100vw; height: 100vh; background: rgba(0,0,0,0.52)">
+    <div style="display: flex; gap: 30px; align-items: center; justify-content: center; flex-direction: column; border: 1px solid white; width: 500px; height: 350px; background: #151515; border-radius: 20px;">
+        <p style="font-size: 20px;">Чи вважає <span style="font-weight: bold;">Seva</span> цей проєкт найкращим?</p>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+          <button id="no" style="background-color: #6a6a6a; color: white; font-size: 14px; font-weight: 500; border: none; padding: 10px 20px; border-radius: 3px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;">
+            No
+          </button>
+          <button id="yes" style="background-color: #6a6a6a; color: white; font-size: 14px; font-weight: 500; border: none; padding: 10px 20px; border-radius: 3px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;">
+            Yes
+          </button>
+
+
+        </div>
+    </div>
+    <img id="smile" class="smile" src="img/icons/png-klev-club-le50-p-smailik-s-laikom-png-3.png" alt="">
+  </div>
+
 </main>
 <script type="module" src="src/js/main.js"></script>
 </body>

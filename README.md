@@ -6,6 +6,7 @@ Project - a YouTube clone created using the YouTube API to fetch video and chann
 - HTML
 - CSS / SCSS
 - JavaScript
+- Vite
 - YouTube API
 
 ## 📌 Functions

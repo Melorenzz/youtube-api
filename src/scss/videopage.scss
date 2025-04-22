@@ -1,0 +1,217 @@
+.open_burger{
+  transition: all .3s;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  //background: rgba(0, 0, 0, 0.17);
+  background: rgba(0, 0, 0, 0.38);
+  z-index: 10;
+  visibility: hidden;
+  opacity: 0;
+}
+.open_burger-bg{
+  visibility: visible;
+  opacity: 1;
+}
+.open_burger-def{
+  background: transparent;
+  position: static;
+}
+.open_burger-block {
+  height: 100vh;
+  transition: all 0.3s;
+  overflow-y: auto;
+  width: 240px;
+  position: absolute;
+  top: 0;
+  left: -300px;
+  background: rgb(15, 15, 15);
+  scrollbar-width: thin; // Firefox
+  scrollbar-color: rgb(113, 113, 113) transparent;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(113, 113, 113);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: rgb(145, 145, 145); // чуть ярче при наведении
+  }
+}
+.open_burger-block-active{
+  left: 0;
+}
+.open_burger-nav{
+  margin-top: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgb(113, 113, 113);
+  .block{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 10px;
+    &:hover{
+      background: rgba(255, 255, 255, 0.2);
+    }
+    p{
+      margin-left: 20px;
+    }
+  }
+
+}
+.open_video{
+  display: flex;
+  justify-content: end;
+  margin-top: 70px;
+}
+.open_video-info{
+  width: 72%;
+  hr{
+    width: 100%;
+    height: 1px;
+    background: rgb(63, 63, 63);
+  }
+}
+.open_video-block{
+  display: flex;
+  gap: 7px;
+  width: 100%;
+  cursor: pointer;
+  .video_thumbnail {
+    border-radius: 10px;
+    background: #ccc;
+    height: 94px;
+    width: 168px;
+  }
+  .video_title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    max-width: 250px;
+    max-height: 40px;
+    overflow: hidden;
+    line-height: 18px;
+    word-wrap: break-word;
+  }
+  .video_details{
+    .channel_name{
+      font-size: 12px;
+      font-weight: 500;
+      color: rgb(170, 170, 170)
+    }
+  }
+
+}
+.open_video-description{
+  position: relative;
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 10px;
+  background: rgb(39, 39, 39);
+  padding: 15px;
+  font-size: 14px;
+  max-height: 100px;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  .views_date{
+    display: flex;
+    gap: 5px;
+    font-weight: 600;
+  }
+  .description{
+    margin-top: 5px;
+    line-height: 25px;
+  }
+}
+.more_description{
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  bottom: 5px;
+  font-weight: 600;
+}
+.open_description{
+  max-height: fit-content;
+}
+.clickedDescription{
+  cursor: default;
+}
+.open_video-other{
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px 0 20px;
+}
+.open_video-channel{
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  >img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+}
+.open_video-channel-name{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  height: 100%;
+}
+iframe{
+   aspect-ratio: 16 / 9;
+   width: 100%;
+
+   border-radius: 20px;
+ }
+.open_video-comments{
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.comment{
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  .comment_ava{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+}
+.comment_info{
+  .comment_username{
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .comment_text{
+    font-size: 14px;
+    margin-top: 7px;
+    line-height: 1.4rem;
+  }
+}

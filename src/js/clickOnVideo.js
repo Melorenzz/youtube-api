@@ -3,7 +3,7 @@ import {openVideo} from "./loadPage.js";
 import {getChannelSubscribers} from "./loadVideoDetails.js";
 import {getComments} from "./loadVideoDetails.js";
 import {title} from "./loadPage.js";
-import {API_KEY} from "./loadVideos.js";
+import {API_KEY} from "./main.js";
 
 import './openDescription.js'
 

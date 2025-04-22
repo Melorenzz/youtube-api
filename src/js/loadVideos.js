@@ -1,7 +1,6 @@
 import {loadOpenVideo} from "./loadOpenVideo.js";
 import {query} from "./loadPage.js";
-
-export const API_KEY = "AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
+import {API_KEY} from "./main.js";
 
 let videoCount = 20;
 export const getDataTest = () => {

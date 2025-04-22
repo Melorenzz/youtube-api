@@ -1,5 +1,5 @@
 import {sendRequest} from "./loadVideos.js";
-import {API_KEY} from "./loadVideos.js";
+import {API_KEY} from "./main.js";
 
 export function getChannelData(channelId) {
     const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${API_KEY}`;

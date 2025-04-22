@@ -2,7 +2,7 @@ import {getChannelData} from "./getChannelInfo.js";
 import {getDataTest} from "./loadVideos.js";
 import {loadOtherVideos} from "./loadOtherVideos.js";
 import {title} from "./loadPage.js";
-import {API_KEY} from "./loadVideos.js";
+import {API_KEY} from "./main.js";
 
 export function loadOpenVideoUrl(url){
     document.getElementById('iframeVideo').src = url;

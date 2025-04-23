@@ -1,5 +1,5 @@
 import {getChannelData} from "./getChannelInfo.js";
-import {getDataTest} from "./loadVideos.js";
+import {getDataTest} from "./loadVideosAPI.js";
 import {loadOtherVideos} from "./loadOtherVideos.js";
 import {title} from "./loadPage.js";
 import {API_KEY} from "./main.js";

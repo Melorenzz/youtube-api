@@ -1,10 +1,14 @@
 import {getChannelAva} from "./getChannelInfo.js";
 import {loadOtherVideos} from "./loadOtherVideos.js";
 import {clickOnVideo} from "./clickOnVideo.js";
+import {loadChannelPage} from "./loadChannelPage.js";
+import {Logger} from "sass";
+import {pushStateChannelPage} from "./loadPage.js";
 
 export const loadedVideo = document.getElementById('loadedVideos');
 
-export function loadOpenVideo(data) {
+export function loadVideosHomepage(data) {
+    loadedVideo.innerHTML = '';
     const videoInfo = data.items;
     videoInfo.forEach((video) => {
         console.log('test')
@@ -33,10 +37,18 @@ export function loadOpenVideo(data) {
             getChannelAva(video.snippet.channelId, avatar)
         })
 
-        videoElement.addEventListener('click', () => {
+        videoElement.addEventListener('click', (e) => {
             clickOnVideo(videoId, video);
             loadOtherVideos(data)
         })
+        const channelName = videoElement.querySelector('.video_channel .channel_name');
+        channelName.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            pushStateChannelPage(video.snippet.channelId)
+            // loadChannelPage(video.snippet.channelId);
+        });
+
         loadedVideo.appendChild(videoElement);
     })
 }

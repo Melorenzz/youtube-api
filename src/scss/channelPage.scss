@@ -1,0 +1,72 @@
+.channel_page{
+  margin-top: 66px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.channel_container{
+  max-width: 1284px;
+  width: 100%;
+  height: 1000px;
+}
+.channel_header{
+  width: 100%;
+  height: 207px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+.channel_information{
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+  .channel_information-ava{
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+  }
+}
+.channel_information-details{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.channel_display-name{
+  font-size: 36px;
+  font-weight: bold;
+}
+.channel_username-subscribers{
+  display: flex;
+  gap: 5px;
+  .channel_username{
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .center_dot, .channel_subscribers{
+    font-size: 14px;
+    color: #aaa;
+  }
+}
+.channel_description {
+  position: relative;
+  max-width: 590px;
+  overflow: hidden;
+  height: 1rem;
+  font-size: 14px;
+
+  .channel_description-text {
+    color: #aaa;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block; // или inline-block
+    text-overflow: ellipsis;
+    mask-image: linear-gradient(to right, black 70%, transparent);
+  }
+
+  .channel_description-more {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-weight: 600;
+  }
+}
+

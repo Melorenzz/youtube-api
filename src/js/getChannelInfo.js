@@ -1,4 +1,4 @@
-import {sendRequest} from "./loadVideos.js";
+import {sendRequest} from "./loadVideosAPI.js";
 import {API_KEY} from "./main.js";
 
 export function getChannelData(channelId) {

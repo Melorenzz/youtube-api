@@ -1,8 +1,8 @@
-export const API_KEY = "YOUR_API_KEY";
+export const API_KEY = "AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
 
 import '../scss/style.scss';
-// import '../js/loadOpenVideo.js'
+// import '../js/loadVideosHomepage.js'
 import '../js/loadPage.js'
-import '../js/loadVideos.js'
+import './loadVideosAPI.js'
 import './burger.js'
 import './pshlka.js'

@@ -1,4 +1,4 @@
-import {loadOpenVideo} from "./loadOpenVideo.js";
+import {loadVideosHomepage} from "./loadVideosHomepage.js";
 import {query} from "./loadPage.js";
 import {API_KEY} from "./main.js";
 
@@ -17,7 +17,7 @@ export const getData = () => {
             userRegion.forEach(region => {
                 region.innerText = response.regionCode;
             })
-            loadOpenVideo(response);
+            loadVideosHomepage(response);
         })
 }
 export const sendRequest = (url, method) => {

@@ -1,8 +1,9 @@
-import {getData} from "./loadVideos.js";
+import {getData} from "./loadVideosAPI.js";
 import {loadVideo} from "./loadVideoDetails.js";
+import {loadChannelPage} from "./loadChannelPage.js";
 
 import './openDescription.js'
-import {loadedVideo} from "./loadOpenVideo.js";
+import {loadedVideo} from "./loadVideosHomepage.js";
 
 export const title = document.getElementById('title');
 export const query = document.getElementById('userSearch');
@@ -12,12 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('video');
     const query = urlParams.get('query');
+    const channelName = urlParams.get('channel');
     console.log(videoId);
     if (videoId) {
         openVideo(videoId);
     }else if(query){
         console.log(query)
         pushStateQuery(query);
+    }else if(channelName){
+        pushStateChannelPage(channelName);
     }
 })
 window.addEventListener('popstate', (event) => {
@@ -44,6 +48,14 @@ function pushStateQuery(userQuery){
     query.value = userQuery;
     title.innerText = userQuery + ' - YouTube';
 }
+
+export function pushStateChannelPage(channelId){
+    history.pushState({}, '', `?channel=${channelId}`)
+    title.innerText = channelId + ' - YouTube';
+    loadChannelPage(channelId)
+}
+
+
 window.addEventListener("scroll", function () {
     const scrollTop = window.scrollY;
     const windowHeight = window.innerHeight;

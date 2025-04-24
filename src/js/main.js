@@ -1,4 +1,4 @@
-export const API_KEY = "AIzaSyDe14bZpQLJTWc_rFsTC-CQPjmXQKvU6tQ";
+export const API_KEY = "YOUR_API_KEY";
 
 import '../scss/style.scss';
 // import '../js/loadVideosHomepage.js'

@@ -211,7 +211,11 @@ a{
     .channel_name{
       font-size: 12px;
       font-weight: 500;
-      color: rgb(170, 170, 170)
+      color: rgb(170, 170, 170);
+      transition: all 0.1s;
+      &:hover{
+        color: white;
+      }
     }
   }
 

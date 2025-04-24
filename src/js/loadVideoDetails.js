@@ -1,7 +1,7 @@
 import {getChannelData} from "./getChannelInfo.js";
 import {getDataTest} from "./loadVideosAPI.js";
 import {loadOtherVideos} from "./loadOtherVideos.js";
-import {title} from "./loadPage.js";
+import {pushStateChannelPage, title} from "./loadPage.js";
 import {API_KEY} from "./main.js";
 
 export function loadOpenVideoUrl(url){
@@ -31,7 +31,9 @@ export function loadVideo(videoId) {
             document.getElementById('channelNameOpenVideo').innerText = `${videoInfo.snippet.channelTitle}`;
             document.getElementById('viewsCountOpenVideo').innerText = `${videoInfo.statistics.viewCount} views`;
             document.getElementById('videoDescriptionOpen').innerText = `${videoInfo.snippet.description}`;
-
+            document.getElementById('openVideoChannel').addEventListener('click', (event) => {
+                pushStateChannelPage(videoInfo.snippet.channelId)
+            })
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             const date = new Date(videoInfo.snippet.publishedAt);
             const day = date.getDate();

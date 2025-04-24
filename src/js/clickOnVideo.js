@@ -8,6 +8,8 @@ import {API_KEY} from "./main.js";
 import './openDescription.js'
 
 export function clickOnVideo(videoId, video){
+    document.getElementById('homepageAside').style.display = 'none'
+    document.getElementById('channelPage').style.display = 'none';
     fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`)
         .then(videoData => videoData.json())
         .then(data => {

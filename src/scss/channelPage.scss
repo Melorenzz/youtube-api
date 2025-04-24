@@ -69,4 +69,29 @@
     font-weight: 600;
   }
 }
+.channel_videos{
+  margin-top: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.channel_video-block{
+  cursor: pointer;
+  max-width: 305px;
+  .video_thumbnail{
+    aspect-ratio: 16/9;
+    width: 305px;
 
+    background: gray;
+    border-radius: 10px;
+  }
+  .video_title{
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.4rem;
+  }
+  .video_views{
+    margin-top: 10px;
+    font-size: 12px;
+  }
+}

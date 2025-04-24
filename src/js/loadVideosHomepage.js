@@ -8,7 +8,6 @@ import {pushStateChannelPage} from "./loadPage.js";
 export const loadedVideo = document.getElementById('loadedVideos');
 
 export function loadVideosHomepage(data) {
-    loadedVideo.innerHTML = '';
     const videoInfo = data.items;
     videoInfo.forEach((video) => {
         console.log('test')
@@ -45,6 +44,7 @@ export function loadVideosHomepage(data) {
         channelName.addEventListener('click', (e) => {
             e.stopPropagation();
             e.preventDefault();
+            console.log(video.snippet.channelId)
             pushStateChannelPage(video.snippet.channelId)
             // loadChannelPage(video.snippet.channelId);
         });

@@ -1,6 +1,7 @@
 import {getData} from "./loadVideosAPI.js";
 import {loadVideo} from "./loadVideoDetails.js";
 import {loadChannelPage} from "./loadChannelPage.js";
+import {getCookie} from './loadChannelPage.js';
 
 import './openDescription.js'
 import {loadedVideo} from "./loadVideosHomepage.js";
@@ -9,6 +10,12 @@ export const title = document.getElementById('title');
 export const query = document.getElementById('userSearch');
 
 document.addEventListener('DOMContentLoaded', () => {
+    if(getCookie('userAvatar')){
+        document.getElementById('userAva').src = getCookie('userAvatar');
+    }else{
+        document.getElementById('userAva').src = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+
+    }
     getData();
     const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('video');

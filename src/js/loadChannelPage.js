@@ -2,25 +2,57 @@ import {getChannelData} from "./getChannelInfo.js";
 import {pushStateChannelPage} from "./loadPage.js";
 import {API_KEY} from "./main.js";
 import {clickOnVideo} from "./clickOnVideo.js";
+import {getUserInfo} from "./userProfile.js";
+
+const openChannelUsername = document.getElementById('openChannelUsername');
+const openChannelDisplayName = document.getElementById('openChannelDisplayName');
+const openChannelDescription = document.getElementById('openChannelDescription');
+const openChannelAva = document.getElementById('openChannelAva');
+const openChannelSubscribers = document.getElementById('openChannelSubscribers');
 
 export function loadChannelPage(channelId) {
-    getChannelData(channelId)
-        .then(data => {
-            console.log('HERE DATA' + ' ' + data)
-            console.log(data)
-            const channelInfo = data.items[0];
-            openChannel()
-            console.log(channelInfo);
+    if(channelId){
+        getChannelData(channelId)
+            .then(data => {
+                console.log('HERE DATA' + ' ' + data)
+                console.log(data)
+                const channelInfo = data.items[0];
+                openChannel()
+                console.log(channelInfo);
 
-            document.getElementById('openChannelUsername').innerText = channelInfo.snippet.customUrl;
-            document.getElementById('openChannelDisplayName').innerText = channelInfo.snippet.title;
-            document.getElementById('openChannelDescription').innerText = channelInfo.snippet.description;
-            document.getElementById('openChannelAva').src = channelInfo.snippet.thumbnails.high.url;
-            document.getElementById('openChannelSubscribers').innerText = channelInfo.statistics.subscriberCount + ' subscribers';
-            getChannelBanner(channelId, document.getElementById('openChannelBanner'));
-            getChannelVideos(channelId);
-        })
+                openChannelUsername.innerText = channelInfo.snippet.customUrl;
+                openChannelDisplayName.innerText = channelInfo.snippet.title;
+                openChannelDescription.innerText = channelInfo.snippet.description;
+                openChannelAva.src = channelInfo.snippet.thumbnails.high.url;
+                openChannelSubscribers.innerText = channelInfo.statistics.subscriberCount + ' subscribers';
+                getChannelBanner(channelId, document.getElementById('openChannelBanner'));
+                getChannelVideos(channelId);
+            })
+    }else{
+        openChannel()
+        if(getCookie('username')){
+            loadUserInfo()
+
+        }else{
+            getUserInfo()
+            loadUserInfo()
+        }
+    }
+
 }
+function loadUserInfo(){
+
+    openChannelUsername.innerText = '@' + getCookie('username');
+    openChannelDisplayName.innerText = getCookie('displayName');
+    openChannelDescription.innerText = getCookie('userDescription');
+    openChannelAva.src = getCookie('userAvatar');
+    document.getElementById('openChannelBanner').src = getCookie('userBanner');
+}
+export function getCookie(name) {
+    const cookie = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+    return cookie ? decodeURIComponent(cookie.split('=')[1]) : null;
+}
+
 function openChannel(){
     document.querySelector('.videoPlayer').style.display = 'none'
     document.querySelector('.main_block-video').style.display = 'none'

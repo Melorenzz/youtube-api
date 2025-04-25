@@ -140,10 +140,10 @@ a{
 }
 .ava{
   height: 36px;
-  min-width: 36px;
+  width: 36px;
   border-radius: 50%;
-  background: red;
   cursor: pointer;
+  object-fit: cover;
 }
 .homepage_aside{
   position: fixed;
@@ -191,6 +191,7 @@ a{
     border-radius: 10px;
     background: #ccc;
     width: 100%;
+    object-fit: coverg;
   }
 
   .video_info {

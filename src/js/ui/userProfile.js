@@ -1,4 +1,4 @@
-import {loadChannelPage} from './loadChannelPage';
+import {loadChannelPage} from './renderChannelPage.js';
 
 const userAva = document.getElementById("userAva");
 userAva.addEventListener("click", function () {

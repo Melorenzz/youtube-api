@@ -1,4 +1,4 @@
-import {clickOnVideo} from "./clickOnVideo.js";
+import {clickOnVideo} from "../hooks/clickOnVideo.js";
 
 export function loadOtherVideos(data) {
     const videoInfo = data.items;

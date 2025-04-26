@@ -1,8 +1,8 @@
-import {getChannelData} from "./getChannelInfo.js";
-import {getDataTest} from "./loadVideosAPI.js";
+import {getChannelData} from "../hooks/getChannelInfo.js";
+import {getDataTest} from "../hooks/loadVideosAPI.js";
 import {loadOtherVideos} from "./loadOtherVideos.js";
 import {pushStateChannelPage, title} from "./loadPage.js";
-import {API_KEY} from "./main.js";
+import {API_KEY} from "../main.js";
 
 export function loadOpenVideoUrl(url){
     document.getElementById('iframeVideo').src = url;

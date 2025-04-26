@@ -1,7 +1,7 @@
-import {getData} from "./loadVideosAPI.js";
+import {getData} from "../hooks/loadVideosAPI.js";
 import {loadVideo} from "./loadVideoDetails.js";
-import {loadChannelPage} from "./loadChannelPage.js";
-import {getCookie} from './loadChannelPage.js';
+import {loadChannelPage} from './renderChannelPage.js';
+import {getCookie} from '../hooks/loadChannelData.js';
 
 import './openDescription.js'
 import {loadedVideo} from "./loadVideosHomepage.js";

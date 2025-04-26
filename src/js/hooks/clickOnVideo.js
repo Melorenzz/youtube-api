@@ -1,11 +1,11 @@
-import {loadOpenVideoUrl} from "./loadVideoDetails.js";
-import {openVideo} from "./loadPage.js";
-import {getChannelSubscribers} from "./loadVideoDetails.js";
-import {getComments} from "./loadVideoDetails.js";
-import {title} from "./loadPage.js";
-import {API_KEY} from "./main.js";
+import {loadOpenVideoUrl} from "../ui/loadVideoDetails.js";
+import {openVideo} from "../ui/loadPage.js";
+import {getChannelSubscribers} from "../ui/loadVideoDetails.js";
+import {getComments} from "../ui/loadVideoDetails.js";
+import {title} from "../ui/loadPage.js";
+import {API_KEY} from "../main.js";
 
-import './openDescription.js'
+import '../ui/openDescription.js'
 
 export function clickOnVideo(videoId, video){
     document.getElementById('homepageAside').style.display = 'none'

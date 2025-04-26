@@ -1,6 +1,6 @@
-import {loadVideosHomepage} from "./loadVideosHomepage.js";
-import {query} from "./loadPage.js";
-import {API_KEY} from "./main.js";
+import {loadVideosHomepage} from "../ui/loadVideosHomepage.js";
+import {query} from "../ui/loadPage.js";
+import {API_KEY} from "../main.js";
 
 let videoCount = 20;
 export const getDataTest = () => {

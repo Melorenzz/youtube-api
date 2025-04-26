@@ -191,7 +191,7 @@ a{
     border-radius: 10px;
     background: #ccc;
     width: 100%;
-    object-fit: coverg;
+    object-fit: cover;
   }
 
   .video_info {
@@ -308,23 +308,24 @@ h1{
   }
 
 }
-
+.mediaSearch{
+  display: none;
+}
+.active_phone-visible{
+  display: block;
+}
+.active_phone-invisible{
+  display: none;
+}
 @media(max-width: 550px){
-
   .notification{
     display: none;
   }
   .search{
-    border: none;
-    background: none;
-    width: fit-content;
-    input{
-      display: none;
-    }
-    button{
-      background: none;
-    }
-
+    display: none;
+  }
+  .mediaSearch{
+    display: block;
   }
 }
 

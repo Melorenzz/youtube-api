@@ -1,7 +1,7 @@
-import {getChannelAva} from "./getChannelInfo.js";
+import {getChannelAva} from "../hooks/getChannelInfo.js";
 import {loadOtherVideos} from "./loadOtherVideos.js";
-import {clickOnVideo} from "./clickOnVideo.js";
-import {loadChannelPage} from "./loadChannelPage.js";
+import {clickOnVideo} from "../hooks/clickOnVideo.js";
+// import {loadChannelPage} from "./loadChannelPage.js";
 import {Logger} from "sass";
 import {pushStateChannelPage} from "./loadPage.js";
 

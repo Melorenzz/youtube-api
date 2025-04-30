@@ -5,16 +5,27 @@ body{
 }
 header{
   top: 0;
-  position: fixed;
   background: rgb(15, 15, 15);
   height: 56px;
   width: 100vw;
   padding: 17px;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 1;
   gap: 10px;
+  position: fixed;
+}
+
+.phoneSearch{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  .arrowBack{
+    cursor: pointer;
+    font-size: 20px;
+  }
 }
 a{
   color: white;
@@ -72,7 +83,31 @@ a{
     }
   }
 }
-
+.searchInputPhone{
+  max-width: 470px;
+  width: 100%;
+  border: 1px solid hsl(0, 0%, 18.82%);
+  border-radius: 50px;
+  background: rgb(18, 18, 18);
+  height: 40px;
+  overflow: hidden;
+  display: flex;
+  gap: 10px;
+  input{
+    height: 100%;
+    width: 90%;
+    background: none;
+    border: none;
+    color: white;
+    padding: 0 20px;
+    font-size: 16px;
+  }
+  button{
+    width: 70px;
+    height: 100%;
+    background: rgb(34, 34, 34);
+  }
+}
 .search{
   max-width: 625px;
   width: 100%;
@@ -307,6 +342,7 @@ h1{
     align-items: center;
   }
 
+
 }
 .mediaSearch{
   display: none;
@@ -321,11 +357,9 @@ h1{
   .notification{
     display: none;
   }
-  .search{
+
+  .create{
     display: none;
-  }
-  .mediaSearch{
-    display: block;
   }
 }
 

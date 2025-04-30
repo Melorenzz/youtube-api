@@ -84,3 +84,9 @@ searchBtn.addEventListener('click', () => {
     pushStateQuery(query.value)
     getData()
 })
+document.getElementById('phoneSearch').addEventListener('click', () => {
+    document.getElementById('phoneSearchSection').style.display = 'flex';
+    document.getElementById('phoneSearch').style.display = 'none';
+    console.log('click')
+})
+

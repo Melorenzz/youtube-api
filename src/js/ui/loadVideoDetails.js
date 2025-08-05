@@ -58,10 +58,8 @@ export function loadVideo(videoId) {
         });
     getComments(videoId);
 
-    getDataTest()
-        .then(response => {
-            loadOtherVideos(response);
-        })
+    getData()
+
 
 }
 export function getComments(videoId){

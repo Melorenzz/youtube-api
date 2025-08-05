@@ -10,6 +10,20 @@ export const title = document.getElementById('title');
 export const query = document.getElementById('userSearch');
 
 document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('query');
+    if(!query){
+        document.getElementById('loaderCircle').style.display = 'none';
+        document.getElementById('loader').innerHTML = `
+            <p>YouTube just updated their API, and now it doesn't load random videos — you need to search instead.</p>
+        `;
+
+    }else{
+        document.getElementById('loaderCircle').style.display = 'block';
+        document.getElementById('loader').innerHTML = `
+                  <div id="loaderCircle" class="loader_videos-circle"></div>
+        `;
+    }
     if(getCookie('userAvatar')){
         document.getElementById('userAva').src = getCookie('userAvatar');
     }else{
@@ -17,9 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
     getData();
-    const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('video');
-    const query = urlParams.get('query');
     const channelName = urlParams.get('channel');
     console.log(videoId);
     if (videoId) {
